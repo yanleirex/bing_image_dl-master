@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 import re
 import time
-
+import json
 import types
 import logging
 
@@ -73,6 +73,8 @@ class Searcher(object):
         :param key_word:which key word to search
         :param current_number: which page to search
         """
+        base_url = ''
+        params = dict()
         if self.engine_name == 'baidu':
             base_url = 'http://image.baidu.com/search/index/acjson'
             params = {

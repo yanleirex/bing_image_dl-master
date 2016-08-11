@@ -42,7 +42,7 @@ class Downloader(object):
         if url_item:
             key_word = url_item['key_word']
             url = url_item['image_url']
-            if self.downloaded_url_queue.set_is_member(url):
+            if not self.downloaded_url_queue.set_is_member(url):
                 image_name = os.path.split(url)[-1]
                 file_path = self.path_dir + '/' + key_word.replace(' ', '_')
                 if not os.path.exists(file_path):

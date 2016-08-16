@@ -3,4 +3,5 @@
 
 
 def handler():
+    print "handler"
     pass

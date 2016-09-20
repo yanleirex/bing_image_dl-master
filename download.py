@@ -26,7 +26,7 @@ class Downloader(object):
             # key_word = url_item['key_word']
             resp = self.sess.get(url)
             if resp.status_code is 200:
-                logging.info("request image url: {0}".format(url))
+                logging.info("Request image url: {0}".format(url))
                 return resp.content
             else:
                 self.failed_url_queue.set_add(url_item)
@@ -75,7 +75,7 @@ class Downloader(object):
                 self._do_download(url_item)
             else:
                 logging.error("No image urls to download")
-                break
+                continue
 
 if __name__ == "__main__":
     downloader = Downloader('bing')

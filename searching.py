@@ -17,6 +17,7 @@ class Searcher(object):
         self.engine_name = engine_name
         self.queue = RedisQueue('image_url')
         self.page_count = 35
+        self.wait_second = 0
 
     @staticmethod
     def _convert_response(response):
@@ -26,6 +27,9 @@ class Searcher(object):
                 return response.json()
             else:
                 return response.content
+
+    def wait(self, wait_second):
+        self.wait_second = wait_second
 
     def do_search(self, key_word):
         """Search key word and push urls into redis queue
@@ -52,8 +56,9 @@ class Searcher(object):
                     self.queue.set_add(item=url_item)
                     logging.info('Store into redis "{0}":"{1}"'.format(key_word, url))
                 current_page += self.page_count
-                logging.info('Waiting 10 seconds')
-                time.sleep(10)
+                if self.wait_second:
+                    logging.info('Waiting 10 seconds')
+                    time.sleep(self.wait_second)
             except IndexError:
                 logging.info('FAILED: No search result for {0}'.format(key_word))
                 break
@@ -107,7 +112,7 @@ class Searcher(object):
         """
         urls = []
         # if type(resp) is types.StringType:
-        if isinstance(resp, types.SliceType):
+        if isinstance(resp, types.StringType):
             if self.engine_name == 'baidu':
                 results = json.loads(resp)['data']
                 for result in results:

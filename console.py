@@ -56,7 +56,6 @@ def check_status(r):
         print "total commands processed: ", info['total_commands_processed']
         time.sleep(1)
 
-
 if __name__ == "__main__":
     r_c = redis.Redis('192.168.0.201', 6379)
     check_status(r_c)

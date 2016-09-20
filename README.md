@@ -7,3 +7,5 @@ download bing image
 
 searching.py用来搜索图片链接并放入redis队列
 download.py用来下载队列里面的图片链接
+
+添加console来监控下载进度与redis状态
